@@ -1,0 +1,96 @@
+    <p-growl [value]="message"></p-growl>
+    <br>
+    <!-- Main content -->
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-xs-6">
+          <!-- small box -->
+          <div (click)="buscarXLote()" class="small-box bg-aqua">
+            <div class="inner">
+              <h3>Buscar por lote</h3>
+            </div>
+            <div class="icon">
+              <i class="fa fa-file-text-o"></i>
+              <br>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-xs-6">
+          <!-- small box -->
+          <div (click)="buscarXSocio()" class="small-box bg-green">
+            <div class="inner">
+              <h3>Buscar por socio</h3>
+            </div>
+            <div class="icon">
+              <i class="fa fa-search"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+    <!-- dt lista facturas x LOTE-->
+    <div *ngIf="condicion == 'lote'">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+              <p-growl [value]="message"></p-growl>
+              <br>
+              <H2>Buscar por lote</H2>
+          
+              <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input #gb type="text" pInputText size="50" placeholder="Buscar" [(ngModel)]="textToFind" (ngModelChange)="find()">
+              </div>
+          
+              <p-dataTable #dt [value]="listaLotes" selectionMode="single" emptyMessage="No existen registros" sortMode="single" reorderableColumns="true"
+                scrollable="true" [globalFilter]="gb"  [paginator]="false" scrollWidth="100%" columnResizeMode="expand" (onRowSelect)="onRowSelect($event)"
+                [responsive]="true">
+          
+                <p-column field="idlote" header="ID" [sortable]="true" [style]="{'width': '100px'}"></p-column>
+                <p-column field="" header="PROPIETARIO" [style]="{'width': '200px'}">
+                  <ng-template let-car="rowData" let-ri="rowIndex" pTemplate="body">
+                    <span>{{car.socio.nombre}} {{car.socio.apellido}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column field="numero" header="NRO. LOTE" [style]="{'width': '200px'}"></p-column>
+                <p-column field="manzana" header="MANZANA" [style]="{'width': '200px'}"></p-column>
+          
+              </p-dataTable>
+          
+            </div>
+          </div>
+    </div>
+    <!-- dt -->
+    <!-- dt lista facturas x SOCIO-->
+    <div *ngIf="condicion == 'socio'">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+              <p-growl [value]="message"></p-growl>
+              <br>
+              <h2>Buscar por socio</h2>
+          
+              <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input #gb type="text" pInputText size="50" placeholder="Buscar" [(ngModel)]="textToFind" (ngModelChange)="find()">
+              </div>
+          
+              <p-dataTable #dt [value]="listaSocios" selectionMode="single" emptyMessage ="No existen registros" sortMode="single" reorderableColumns="true"
+                scrollable="true" [globalFilter]="gb" scrollWidth="100%" columnResizeMode="expand" (onRowSelect)="onRowSelect($event)"
+                [responsive]="true">
+          
+                <p-column field="idsocio" header="ID" [sortable]="true" [style]="{'width': '100px'}"></p-column>
+                <p-column field="nombre" header="NOMBRE" [style]="{'width': '200px'}"></p-column>
+                <p-column field="apellido" header="APELLIDO" [style]="{'width': '200px'}"></p-column>
+                <p-column field="dni" header="DNI" [style]="{'width': '200px'}"></p-column>
+                <p-column field="cuitcuil" header="CUIT CUIL" [style]="{'width': '200px'}"></p-column>
+          
+              </p-dataTable>
+          
+            </div>
+          </div>
+    </div>
+    <!-- dt -->

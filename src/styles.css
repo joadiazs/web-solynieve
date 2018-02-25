@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~primeng/resources/themes/omega/theme.css";
+@import "~primeng/resources/primeng.min.css";
+
+/*MODIFICO EL CSS DEL ALERT DE PRIMENG (SOLAMENTE LA PROPIEDAD margin-top)*/
+.ui-growl-item {
+    margin-top: 18%;
+    position: relative;
+    display: block;
+    padding: .5em 1em;
+}
+
+.alert>p, .alert>ul {
+    margin-top: -3% !important;
+}
+
+.alert {
+    height: 10px !important;
+    margin-bottom: 0px !important;
+}
+
+.ui-widget-content{
+    border: 0px;
+}
+
+.skin-blue .main-header .navbar {
+  background-color: #004998;
+}
+
+.skin-blue .main-header .logo {
+  background-color: #004998;  
+}
+
+.skin-blue .main-header .logo:hover {
+  background-color: #fdcb2e;
+  color: #000000;
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+  background-color: #fdcb2e;
+  color: #000000;
+}
+
+.skin-blue .main-header li.user-header{
+    background-color: #004998;  
+}

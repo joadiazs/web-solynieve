@@ -1,0 +1,36 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <p-growl [value]="message"></p-growl>
+    <br>
+    <H2>Lista de Lotes</H2>
+
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input #gb type="text" pInputText size="50" placeholder="Buscar" [(ngModel)]="textToFind" (ngModelChange)="find()">
+    </div>
+
+    <p-dataTable #dt [value]="listaLotes" selectionMode="single" emptyMessage="No existen registros" sortMode="single" reorderableColumns="true"
+      scrollable="true" [globalFilter]="gb"  [paginator]="false" scrollWidth="100%" columnResizeMode="expand" (onRowSelect)="onRowSelect($event)"
+      [responsive]="true">
+
+      <p-header>
+        <div class="ui-helper-clearfix" style="width:100%">
+          <button type="button" pButton icon="fa-plus" style="float:left" (click)="nuevoLote()" label="NUEVO"></button>
+        </div>
+      </p-header>
+
+      <p-column field="idlote" header="ID" [sortable]="true" [style]="{'width': '100px'}"></p-column>
+      <p-column field="" header="PROPIETARIO" [style]="{'width': '200px'}">
+        <ng-template let-car="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{car.socio.nombre}} {{car.socio.apellido}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="numero" header="NRO. LOTE" [style]="{'width': '200px'}"></p-column>
+      <p-column field="manzana" header="MANZANA" [style]="{'width': '200px'}"></p-column>
+
+    </p-dataTable>
+    <p-paginator rows="10" [rowsPerPageOptions]="[10,50,100]" ></p-paginator>
+    
+
+  </div>
+</div>

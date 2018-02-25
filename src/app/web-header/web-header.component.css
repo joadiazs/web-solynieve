@@ -1,0 +1,33 @@
+.deplegable {
+    width: 191px !important;
+    height: 64px !important; 
+}
+
+.mm {
+  animation: shake 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: skewX(10deg);
+  }
+  25% {
+    transform: skewX(0deg);
+  }
+  50% {
+    transform: skewX(-10deg);
+  }
+  75% {
+    transform: skewX(0deg);
+  }
+  100% {
+    transform: skewX(10deg);
+  }
+}
+header img{
+  vertical-align: initial;
+}
+.logo-mini span{
+  color: #f2af39;
+}

@@ -1,0 +1,7 @@
+.small-box{
+    height: 110px;
+    cursor: pointer
+}
+.content{
+    min-height: unset
+}
