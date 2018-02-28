@@ -9,7 +9,8 @@
         <li class="active">
           <a href="#info" data-toggle="tab">Información básica</a>
         </li>
-        <li *ngIf="socioSeleccionado.idsocio">
+        <!--<li *ngIf="socio.idsocio">-->
+        <li>
           <a href="#facturas" data-toggle="tab">Facturas</a>
         </li>
       </ul>
@@ -18,271 +19,225 @@
     <div class="tab-content">
 
       <div class="active tab-pane" id="info">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="box box-info">
-              <div class="box-header">
-                <h3 class="box-title">Detalles del socio</h3>
-              </div>
-              <br>
-              <div class="box-body">
-
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-6">
-                    <div class="form-group">
-                      <b>Número de socio</b>
-                      <br>
-                      <input [(ngModel)]="socioSeleccionado.nrosocio" type="text" readonly="true" class="form-control" size="30" pInputText>
-                    </div>
-                  </div>
-
+        <form [formGroup]="socioForm" novalidate class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header">
+                  <h3 class="box-title">Detalles del socio</h3>
                 </div>
                 <br>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-6">
-                    <div class="form-group">
-                      <b>Nombre</b>
-                      <br>
-                      <input [(ngModel)]="socioSeleccionado.nombre" type="text" class="form-control" size="30" pInputText>
+                <div class="box-body">
+
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">
+                      <div class="form-group">
+                        <b>Número de socio</b>
+                        <br>
+                        <input formControlName="numeroSocio" class="form-control" [(ngModel)]="socio.nrosocio" type="text" readonly="true">
+                      </div>
+                    </div>
+
+                  </div>
+                  <br>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">
+                      <div class="form-group">
+                        <b>Nombre</b>
+                        <br>
+                        <input formControlName="nombreSocio" class="form-control" [(ngModel)]="socio.nombre" type="text">
+                        <div *ngIf="socioForm.get('nombreSocio').errors && socioForm.get('nombreSocio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('nombreSocio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('nombreSocio').hasError('pattern')">Ingrese un nombre válido</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-col-1">
+                      &nbsp;
+                    </div>
+                    <div class="ui-grid-col-5">
+                      <div class="form-group">
+                        <b>Apellido</b>
+                        <br>
+                        <input formControlName="apellidoSocio" class="form-control" [(ngModel)]="socio.apellido" type="text">
+                        <div *ngIf="socioForm.get('apellidoSocio').errors && socioForm.get('apellidoSocio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('apellidoSocio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('apellidoSocio').hasError('pattern')">Ingrese un apellido válido</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="ui-grid-col-1">
-                    &nbsp;
-                  </div>
-                  <div class="ui-grid-col-5">
-                    <div class="form-group">
-                      <b>Apellido</b>
-                      <br>
-                      <input [(ngModel)]="socioSeleccionado.apellido" type="text" class="form-control" size="30" pInputText>
+                  <br>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">
+                      <div class="form-group">
+                        <b>DNI</b>
+                        <input formControlName="dniSocio" class="form-control" [(ngModel)]="socio.dni" type="number">
+                        <div *ngIf="socioForm.get('dniSocio').errors && socioForm.get('dniSocio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('dniSocio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('dniSocio').hasError('pattern')">Ingrese un DNI válido</p>
+                        </div>
+                      </div>
                     </div>
+                    <div class="ui-grid-col-1">
+                      &nbsp;
+                    </div>
+                    <div class="ui-grid-col-5">
+                      <div class="form-group">
+                        <b>CUIT - CUIL</b>
+                        <input formControlName="cuilcuitSocio" class="form-control" [(ngModel)]="socio.cuitcuil" type="number">
+                        <div *ngIf="socioForm.get('cuilcuitSocio').errors && socioForm.get('cuilcuitSocio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('cuilcuitSocio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('cuilcuitSocio').hasError('pattern')">Ingrese un cuil-cuit válido</p>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
+                  <br>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">
+                      <div class="form-group">
+                        <b>Fecha de nacimiento</b>
+                        <br>
+                        <input formControlName="fechanacSocio" class="form-control" type="date" [(ngModel)]="socio.fechanac">
+                        <div *ngIf="socioForm.get('fechanacSocio').errors && socioForm.get('fechanacSocio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('fechanacSocio').hasError('required')">Este campo es obligatorio</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-col-1">
+                      &nbsp;
+                    </div>
+
+                  </div>
+                  <br>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">
+                      <div class="form-group">
+                        <b>Teléfono</b>
+                        <input formControlName="telefonoSocio" class="form-control" [(ngModel)]="socio.telefono" type="number">
+                        <div *ngIf="socioForm.get('telefonoSocio').errors && socioForm.get('telefonoSocio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('telefonoSocio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('telefonoSocio').hasError('pattern')">Ingrese un telefono válido</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-col-1">
+                      &nbsp;
+                    </div>
+                    <div class="ui-grid-col-5">
+
+                    </div>
+
+                  </div>
+
                 </div>
-                <br>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-6">
-                    <div class="form-group">
-                      <b>DNI</b>
-                      <input [(ngModel)]="socioSeleccionado.dni" type="number" class="form-control" size="30" pInputText>
-                    </div>
-                  </div>
-                  <div class="ui-grid-col-1">
-                    &nbsp;
-                  </div>
-                  <div class="ui-grid-col-5">
-                    <div class="form-group">
-                      <b>CUIT - CUIL</b>
-                      <input [(ngModel)]="socioSeleccionado.cuitcuil" type="number" class="form-control" size="30" pInputText>
-                    </div>
-                  </div>
-
-                </div>
-                <br>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-6">
-                    <div class="form-group">
-                      <b>Fecha de nacimiento</b>
-                      <br>
-                      <input type="date" [(ngModel)]="socioSeleccionado.fechanac">
-                    </div>
-                  </div>
-                  <div class="ui-grid-col-1">
-                    &nbsp;
-                  </div>
-
-                </div>
-                <br>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-6">
-                    <div class="form-group">
-                      <b>Teléfono</b>
-                      <input [(ngModel)]="socioSeleccionado.telefono" type="number" class="form-control" size="30" pInputText>
-                    </div>
-                  </div>
-                  <div class="ui-grid-col-1">
-                    &nbsp;
-                  </div>
-                  <div class="ui-grid-col-5">
-
-                  </div>
-
-                </div>
-
-              </div>
-              <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-
-          </div>
-          <!-- /.col (left) -->
-          <div class="col-md-6">
-            <div class="box box-info">
-              <div class="box-header">
-                <h3 class="box-title">Domicilio</h3>
-              </div>
-              <br>
-              <div class="box-body">
-
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5">
-                    <div class="form-group">
-
-                      <b>Calle</b>
-                      <br>
-                      <input [(ngModel)]="socioSeleccionado.domicilio.calle" type="text" class="form-control" size="30" pInputText>
-                    </div>
-                  </div>
-                  <div class="ui-grid-col-2">
-                    &nbsp;
-                  </div>
-                  <div class="ui-grid-col-5">
-                    <div class="form-group">
-
-                      <b>Número</b>
-                      <br>
-                      <input [(ngModel)]="socioSeleccionado.domicilio.calle" type="text" class="form-control" size="30" pInputText>
-
-                    </div>
-                  </div>
-                </div>
-                <br>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5">
-                    <div class="form-group">
-
-                      <b>Calle</b>
-                      <br>
-                      <input [(ngModel)]="socioSeleccionado.domicilio.departamento" type="text" class="form-control" size="30" pInputText>
-                    </div>
-                  </div>
-                  <div class="ui-grid-col-2">
-                    &nbsp;
-                  </div>
-                  <div class="ui-grid-col-5">
-
-                  </div>
-                </div>
-
                 <!-- /.box-body -->
               </div>
               <!-- /.box -->
 
             </div>
+            <!-- /.col (left) -->
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header">
+                  <h3 class="box-title">Domicilio</h3>
+                </div>
+                <br>
+                <div class="box-body">
+
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5">
+                      <div class="form-group">
+
+                        <b>Calle</b>
+                        <br>
+                        <input formControlName="calleDomicilio" class="form-control" [(ngModel)]="domicilio.calle" type="text">
+                        <div *ngIf="socioForm.get('calleDomicilio').errors && socioForm.get('calleDomicilio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('calleDomicilio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('calleDomicilio').hasError('pattern')">Ingrese una calle válida</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-col-2">
+                      &nbsp;
+                    </div>
+                    <div class="ui-grid-col-5">
+                      <div class="form-group">
+
+                        <b>Número</b>
+                        <br>
+                        <input formControlName="numeroDomicilio" class="form-control" [(ngModel)]="domicilio.numero" type="text">
+                        <div *ngIf="socioForm.get('numeroDomicilio').errors && socioForm.get('numeroDomicilio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('numeroDomicilio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('numeroDomicilio').hasError('pattern')">Ingrese un número válido</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5">
+                      <div class="form-group">
+
+                        <b>Departamento</b>
+                        <br>
+                        <input formControlName="departamentoDomicilio" class="form-control" [(ngModel)]="domicilio.departamento" type="text">
+                        <div *ngIf="socioForm.get('departamentoDomicilio').errors && socioForm.get('departamentoDomicilio').dirty" class="alert alert-danger">
+                          <p *ngIf="socioForm.get('departamentoDomicilio').hasError('required')">Este campo es obligatorio</p>
+                          <p *ngIf="socioForm.get('departamentoDomicilio').hasError('pattern')">Ingrese un departamento válido</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-col-2">
+                      &nbsp;
+                    </div>
+                    <div class="ui-grid-col-5">
+
+                    </div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="rightPos ui-grid-col-12">
+                      <button type="button" [disabled]="!socioForm.valid" pButton icon="fa-plus" class="rightPos" (click)="guardar()">GUARDAR</button>
+                    </div>
+                  </div>
+
+                  <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+              </div>
+            </div>
+
           </div>
-          
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+      <div class="tab-pane" id="facturas">
+
+        <div *ngIf="socio && listafacturas.length > 0">
+
+          <p-dataTable #dt [scrollable]="true" [value]="notaenvios" sortMode="single" reorderableColumns="true" [rows]="10" [paginator]="true"
+            [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [responsive]="true">
+            <p-column styleClass="col-button" [style]="{'width': '37px'}">
+              <ng-template let-car="rowData" pTemplate="body">
+                <button type="button" pButton (click)="inspeccionarFactura(car)" icon="fa-search"></button>
+              </ng-template>
+            </p-column>
+            <p-column field="fechaemision" header="Fecha de emisión" [style]="{'width': '50%'}"></p-column>
+            <p-column field="nrofactura" header="Número de factura" [style]="{'width': '50%'}"></p-column>
+
+          </p-dataTable>
         </div>
-        <!-- /.tab-pane -->
 
-        <div class="tab-pane" id="facturas">
-
-          <div *ngIf="socioSeleccionado && listafacturas.length > 0">
-            <!-- The timeline -->
-            <ul class="timeline timeline-inverse">
-              <!-- timeline time label -->
-              <li class="time-label">
-                <span class="bg-blue">
-                  sd
-                </span>
-              </li>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <li>
-                <i class="fa fa-envelope bg-blue"></i>
-
-                <div class="timeline-item">
-                  <span class="time">
-                    <i class="fa fa-clock-o"></i> 12:05</span>
-
-                  <h3 class="timeline-header">
-                    <a href="#">Support Team</a> sent you an email</h3>
-
-                  <div class="timeline-body">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle quora plaxo ideeli hulu weebly balihoo...
-                  </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-primary btn-xs">Read more</a>
-                    <a class="btn btn-danger btn-xs">Delete</a>
-                  </div>
-                </div>
-              </li>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <li>
-                <i class="fa fa-user bg-aqua"></i>
-
-                <div class="timeline-item">
-                  <span class="time">
-                    <i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-                  <h3 class="timeline-header no-border">
-                    <a href="#">Sarah Young</a> accepted your friend request
-                  </h3>
-                </div>
-              </li>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <li>
-                <i class="fa fa-comments bg-yellow"></i>
-
-                <div class="timeline-item">
-                  <span class="time">
-                    <i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                  <h3 class="timeline-header">
-                    <a href="#">Jay White</a> commented on your post</h3>
-
-                  <div class="timeline-body">
-                    Take me to your leader! Switzerland is small and neutral! We are more like Germany, ambitious and misunderstood!
-                  </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                  </div>
-                </div>
-              </li>
-              <!-- END timeline item -->
-              <!-- timeline time label -->
-              <li class="time-label">
-                <span class="bg-green">
-                  3 Jan. 2014
-                </span>
-              </li>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <li>
-                <i class="fa fa-camera bg-purple"></i>
-
-                <div class="timeline-item">
-                  <span class="time">
-                    <i class="fa fa-clock-o"></i> 2 days ago</span>
-
-                  <h3 class="timeline-header">
-                    <a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                  <div class="timeline-body">
-                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                  </div>
-                </div>
-              </li>
-              <!-- END timeline item -->
-              <li>
-                <i class="fa fa-clock-o bg-gray"></i>
-              </li>
-            </ul>
-          </div>
-
-          <div *ngIf="socioSeleccionado.idsocio && listafacturas.length <= 0">
-            <h3>EL SOCIO
-              <b>{{socioSeleccionado.nombre}} {{socioSeleccionado.apellido}}</b> NO TIENE FACTURAS CARGADAS.</h3>
-          </div>
-
-
+        <div *ngIf="socio.idsocio && listafacturas.length <= 0">
+          <h3>EL SOCIO
+            <b>{{socio.nombre}} {{socio.apellido}}</b> NO TIENE FACTURAS CARGADAS.</h3>
         </div>
-        <!-- /.tab-pane -->
+
 
       </div>
-
+      <!-- /.tab-pane -->
     </div>
   </div>

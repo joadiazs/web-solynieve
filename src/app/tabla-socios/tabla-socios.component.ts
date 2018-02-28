@@ -12,10 +12,9 @@ import { Router } from '@angular/router';
 export class TablaSociosComponent implements OnInit {
 
   listaSocios: Socio[] = [];
-  socioSeleccionado: Socio = new Socio();
+  idsocio: number | null = null;
   textToFind: string = '';
   message: Message[] = []
-
 
   constructor(
     private socioService: SocioService,
@@ -55,12 +54,39 @@ export class TablaSociosComponent implements OnInit {
   }
 
   onRowSelect(event) {
-    let idsocio: number = event.data.idlote    
-    this.router.navigate(['/socio'], { queryParams: { idsocio: idsocio } });
+    this.idsocio = event.data.idlote;
+    //this.router.navigate(['/socio'], { queryParams: { idsocio: this.idsocio } });
   }
 
   nuevoSocio() {
     this.router.navigate(['/socio']);
+  }
+
+  modificarSocio() {
+    if (this.idsocio && this.idsocio > 0) {
+      this.router.navigate(['/socio'], { queryParams: { idsocio: this.idsocio } });
+    } else {
+      this.message = [];
+      this.message.push({ severity: 'info', summary: 'Operación inválida!', detail: 'Se debe seleccionar un socio.' });
+    }
+  }
+
+  eliminarSocio() {
+    if (this.idsocio && this.idsocio > 0) {
+      this.socioService.delete(this.idsocio)
+        .subscribe(() => {
+          this.idsocio = null;
+          this.message = [];
+          this.message.push({ severity: 'success', summary: 'Operación exitosa!', detail: 'Se elimino el registro.' });
+        })
+    } else {
+      this.message = [];
+      this.message.push({ severity: 'info', summary: 'Operación inválida!', detail: 'Se debe seleccionar un socio.' });
+    }
+  }
+
+  generarExcel() {
+
   }
 
 

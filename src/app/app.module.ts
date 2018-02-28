@@ -48,6 +48,8 @@ import { UsuarioService } from './shared/services/index'
 import { FacturaService } from './shared/services/factura.service';
 import { SocioService } from './shared/services/socio.service';
 import { LoteService } from './shared/services/lote.service';
+import { DomicilioService } from './shared/services/domicilio.service';
+import { ExcelService } from './shared/services/excel.service';
 
 //COMPONENTS
 import { SDKBrowserModule } from './shared/services/lbsdk/';
@@ -114,7 +116,9 @@ import { TablaFacturaComponent } from './tabla-factura/tabla-factura.component';
     UsuarioService,
     FacturaService,
     SocioService,
-    LoteService
+    LoteService,
+    DomicilioService,
+    ExcelService
   ],
   bootstrap: [AppComponent]
 })
