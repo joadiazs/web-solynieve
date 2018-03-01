@@ -55,7 +55,6 @@ export class TablaSociosComponent implements OnInit {
 
   onRowSelect(event) {
     this.idsocio = event.data.idlote;
-    //this.router.navigate(['/socio'], { queryParams: { idsocio: this.idsocio } });
   }
 
   nuevoSocio() {

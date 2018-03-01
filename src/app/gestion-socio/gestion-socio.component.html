@@ -1,8 +1,12 @@
 <div class="box box-primary">
   <div class="box-header with-border">
     <p-growl [value]="message"></p-growl>
-    <br>
-    <H2>GESTIÓN SOCIO</H2>
+    <div *ngIf="socio.idsocio">
+      <H2>GESTIÓN DE SOCIO {{socio.nombre}} {{socio.apellido}}</H2>
+    </div>
+    <div *ngIf="!socio.idsocio">
+      <H2>NUEVO SOCIO</H2>
+    </div>
 
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">

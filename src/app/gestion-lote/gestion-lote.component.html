@@ -1,12 +1,11 @@
 <div class="box box-primary">
   <div class="box-header with-border">
     <p-growl [value]="message"></p-growl>
-    <br>
-    <div *ngIf="loteSeleccionado.idlote">
-      <H2>GESTIÓN LOTE NRO.{{loteSeleccionado.numero}}</H2>
+    <div *ngIf="lote.idlote">
+      <H2>GESTIÓN LOTE NRO.{{lote.numero}}</H2>
     </div>
-    <div *ngIf="!loteSeleccionado.idlote">
-      <H2>Nuevo lote</H2>
+    <div *ngIf="!lote.idlote">
+      <H2>NUEVO LOTE</H2>
     </div>
     <br>
     <div class="nav-tabs-custom">
@@ -14,7 +13,7 @@
         <li class="active">
           <a href="#info" data-toggle="tab">Información básica</a>
         </li>
-        <li *ngIf="loteSeleccionado.idlote">
+        <li *ngIf="lote.idlote">
           <a href="#facturas" data-toggle="tab">Facturas</a>
         </li>
       </ul>
@@ -22,198 +21,212 @@
       <div class="tab-content">
 
         <div class="active tab-pane" id="info">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="box box-info">
-                <div class="box-header">
-                  <h3 class="box-title">Detalles del lote</h3>
-                </div>
-                <br>
-                <div class="box-body">
-
-                  <div class="ui-grid-row">
-                    <div class="ui-grid-col-6">
-                      <div class="form-group">
-                        <b>Número de lote</b>
-                        <br>
-                        <input [(ngModel)]="loteSeleccionado.numero" type="number" class="form-control" size="30" pInputText>
-                      </div>
-                    </div>
-                    <div class="ui-grid-col-1">
-                      &nbsp;
-                    </div>
-                    <div class="ui-grid-col-5">
-                      <div class="form-group">
-
-                        <b>Manzana</b>
-                        <br>
-                        <p-dropdown [options]="manzanas" [(ngModel)]="loteSeleccionado.manzana" [style]="{'width':'175px'}">
-                          <ng-template let-man pTemplate="item">
-                            {{man.label}}
-                          </ng-template>
-                        </p-dropdown>
-
-                      </div>
-                    </div>
+          <form [formGroup]="loteForm" novalidate class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="box box-info">
+                  <div class="box-header">
+                    <h3 class="box-title">Detalles del lote</h3>
                   </div>
                   <br>
-                  <div class="ui-grid-row">
-                    <div class="ui-grid-col-6">
-                      <div class="form-group">
-                        <b>Nro. válvulas</b>
-                        <br>
-                        <input [(ngModel)]="loteSeleccionado.nrovalvulas" type="number" class="form-control" size="30" pInputText>
+                  <div class="box-body">
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-6">
+                        <div class="form-group">
+                          <b>Número de lote</b>
+                          <br>
+                          <input formControlName="numeroLote" class="form-control" [(ngModel)]="lote.numero" type="number">
+                          <div *ngIf="loteForm.get('numeroLote').errors && loteForm.get('numeroLote').dirty" class="alert alert-danger">
+                            <p *ngIf="loteForm.get('numeroLote').hasError('required')">Este campo es obligatorio</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-1">
+                        &nbsp;
+                      </div>
+                      <div class="ui-grid-col-5">
+                        <div class="form-group">
+
+                          <b>Manzana</b>
+                          <br>
+                          <p-dropdown formControlName="manzana" class="form-control" [options]="manzanas" [(ngModel)]="lote.manzana" [style]="{'width':'175px'}">
+                            <ng-template let-manz pTemplate="item">
+                              {{manz.label}}
+                            </ng-template>
+                          </p-dropdown>
+                          <div *ngIf="loteForm.get('manzana').errors && loteForm.get('manzana').dirty" class="alert alert-danger">
+                            <p *ngIf="loteForm.get('manzana').hasError('required')">Este campo es obligatorio</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="ui-grid-col-1">
-                      &nbsp;
-                    </div>
-                    <div class="ui-grid-col-5">
-                      <div class="form-group">
-                        <b>Frente</b>
-                        <br>
-                        <input [(ngModel)]="loteSeleccionado.frente" type="number" class="form-control" size="30" pInputText>
+                    <br>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-6">
+                        <div class="form-group">
+                          <b>Nro. válvulas</b>
+                          <br>
+                          <input formControlName="nrovalvulas" class="form-control" [(ngModel)]="lote.nrovalvulas" type="number">
+                          <div *ngIf="loteForm.get('nrovalvulas').errors && loteForm.get('nrovalvulas').dirty" class="alert alert-danger">
+                            <p *ngIf="loteForm.get('nrovalvulas').hasError('required')">Este campo es obligatorio</p>
+                            <p *ngIf="loteForm.get('nrovalvulas').hasError('pattern')">Ingrese un número válido</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-1">
+                        &nbsp;
+                      </div>
+                      <div class="ui-grid-col-5">
+                        <div class="form-group">
+                          <b>Frente</b>
+                          <br>
+                          <input formControlName="frente" class="form-control" [(ngModel)]="lote.frente" type="number">
+                          <div *ngIf="loteForm.get('frente').errors && loteForm.get('frente').dirty" class="alert alert-danger">
+                            <p *ngIf="loteForm.get('frente').hasError('required')">Este campo es obligatorio</p>
+                            <p *ngIf="loteForm.get('frente').hasError('pattern')">Ingrese un número válido</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    <br>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-6">
+                        <div class="form-group">
+                          <b>Edificado</b>
+                          <p-checkbox formControlName="edificado" class="form-control margen" [(ngModel)]="lote.edificado" binary="true"></p-checkbox>
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-1">
+                        &nbsp;
+                      </div>
+                      <div class="ui-grid-col-5">
+                        <div class="form-group">
+                          <b>Residuos</b>
+                          <p-checkbox formControlName="residuos" class="form-control margen" [(ngModel)]="lote.residuos" binary="true"></p-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col (left) -->
+              <div class="col-md-6">
+                <div class="box box-info">
+                  <div class="box-header">
+                    <h3 class="box-title">Socios adheridos</h3>
                   </div>
                   <br>
-                  <div class="ui-grid-row">
-                    <div class="ui-grid-col-6">
-                      <div class="form-group">
-                        <b>Edificado</b>
-                        <p-checkbox class="margen" [(ngModel)]="loteSeleccionado.edificado" binary="true"></p-checkbox>
+                  <div class="box-body">
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-5">
+                        <div class="form-group">
+
+                          <b>Buscar por nombre</b>
+                          <br>
+                          <p-autoComplete formControlName="socioxnombre" [(ngModel)]="lote.socio" [suggestions]="listaSocios" (completeMethod)="buscarSocioXnombre($event)"
+                            field="apellido" [style]="{'overflow':'visible'}">
+                            <ng-template let-socio pTemplate="item">
+                              {{socio.apellido}} {{socio.nombre}}
+                            </ng-template>
+                          </p-autoComplete>
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        &nbsp;
+                      </div>
+                      <div class="ui-grid-col-5">
+                        <div class="form-group">
+
+                          <b>Buscar por DNI</b>
+                          <br>
+                          <p-autoComplete formControlName="socioxdni" [(ngModel)]="lote.socio" [suggestions]="listaSocios" (completeMethod)="buscarSocioXdni($event)"
+                            field="dni" [style]="{'overflow':'visible'}">
+                            <ng-template let-socio pTemplate="item">
+                              {{socio.apellido}} {{socio.nombre}}
+                            </ng-template>
+                          </p-autoComplete>
+                        </div>
                       </div>
                     </div>
-                    <div class="ui-grid-col-1">
-                      &nbsp;
-                    </div>
-                    <div class="ui-grid-col-5">
-                      <div class="form-group">
-                        <b>Residuos</b>
-                        <p-checkbox class="margen" [(ngModel)]="loteSeleccionado.residuos" binary="true"></p-checkbox>
+                    <div *ngIf="lote.socio && lote.socio.idsocio">
+                      <div class="ui-grid-row">
+                        <hr>
+
+                        <div class="ui-grid-col-12" class="centrar">
+                          <div class="form-group">
+                            <h3>Número de socio: {{lote.socio.nrosocio}}</h3>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-4">
+
+                          <div class="form-group">
+                            <b>Nombre:</b>
+                            <br> {{lote.socio.nombre}}
+                          </div>
+                        </div>
+                        <div class="ui-grid-col-4">
+                          <div class="form-group">
+                            <b>Apellido:</b>
+                            <br>{{lote.socio.apellido}}
+                          </div>
+                        </div>
+                        <div class="ui-grid-col-4">
+                          <div class="form-group">
+                            <b>Fecha de nacimiento:</b>
+                            <br>{{lote.socio.fechanac | date: 'd/m/y'}}
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-4">
+
+                          <div class="form-group">
+                            <b>DNI:</b>
+                            <br>{{lote.socio.dni}}
+                          </div>
+                        </div>
+                        <div class="ui-grid-col-4">
+                          <div class="form-group">
+                            <b>CUIL:</b>
+                            <br>{{lote.socio.cuitcuil}}
+                          </div>
+                        </div>
+                        <div class="ui-grid-col-4">
+                          <div class="form-group">
+                            <b>TELÉFONO:</b>
+                            <br>{{lote.socio.telefono}}
+                          </div>
+                        </div>
+
                       </div>
                     </div>
 
                   </div>
-
+                  <!-- /.box-body -->
                 </div>
-                <!-- /.box-body -->
+                <!-- /.box -->
+
               </div>
-              <!-- /.box -->
-
             </div>
-            <!-- /.col (left) -->
-            <div class="col-md-6">
-              <div class="box box-info">
-                <div class="box-header">
-                  <h3 class="box-title">Socios adheridos</h3>
-                </div>
-                <br>
-                <div class="box-body">
-
-                  <div class="ui-grid-row">
-                    <div class="ui-grid-col-5">
-                      <div class="form-group">
-
-                        <b>Buscar por nombre</b>
-                        <br>
-                        <p-autoComplete [(ngModel)]="loteSeleccionado.socio" [suggestions]="listaSocios" (completeMethod)="buscarSocioXnombre($event)"
-                          field="apellido" [style]="{'overflow':'visible'}">
-                          <ng-template let-socio pTemplate="item">
-                            {{socio.apellido}} {{socio.nombre}}
-                          </ng-template>
-                        </p-autoComplete>
-                      </div>
-                    </div>
-                    <div class="ui-grid-col-2">
-                      &nbsp;
-                    </div>
-                    <div class="ui-grid-col-5">
-                      <div class="form-group">
-
-                        <b>Buscar por DNI</b>
-                        <br>
-                        <p-autoComplete [(ngModel)]="loteSeleccionado.socio" [suggestions]="listaSocios" (completeMethod)="buscarSocioXdni($event)"
-                          field="dni" [style]="{'overflow':'visible'}">
-                          <ng-template let-socio pTemplate="item">
-                            {{socio.apellido}} {{socio.nombre}}
-                          </ng-template>
-                        </p-autoComplete>
-                      </div>
-                    </div>
-                  </div>
-                  <div *ngIf="loteSeleccionado.socio && loteSeleccionado.socio.idsocio">
-                    <div class="ui-grid-row">
-                      <hr>
-
-                      <div class="ui-grid-col-12" class="centrar">
-                        <div class="form-group">
-                          <h3>Número de socio: {{loteSeleccionado.socio.nrosocio}}</h3>
-                        </div>
-                      </div>
-
-
-                    </div>
-                    <div class="ui-grid-row">
-                      <div class="ui-grid-col-4">
-
-                        <div class="form-group">
-                          <b>Nombre:</b>
-                          <br> {{loteSeleccionado.socio.nombre}}
-                        </div>
-                      </div>
-                      <div class="ui-grid-col-4">
-                        <div class="form-group">
-                          <b>Apellido:</b>
-                          <br>{{loteSeleccionado.socio.apellido}}
-                        </div>
-                      </div>
-                      <div class="ui-grid-col-4">
-                        <div class="form-group">
-                          <b>Fecha de nacimiento:</b>
-                          <br>{{loteSeleccionado.socio.fechanac | date: 'd/m/y'}}
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="ui-grid-row">
-                      <div class="ui-grid-col-4">
-
-                        <div class="form-group">
-                          <b>DNI:</b>
-                          <br>{{loteSeleccionado.socio.dni}}
-                        </div>
-                      </div>
-                      <div class="ui-grid-col-4">
-                        <div class="form-group">
-                          <b>CUIL:</b>
-                          <br>{{loteSeleccionado.socio.cuitcuil}}
-                        </div>
-                      </div>
-                      <div class="ui-grid-col-4">
-                        <div class="form-group">
-                          <b>TELÉFONO:</b>
-                          <br>{{loteSeleccionado.socio.telefono}}
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-
-                </div>
-                <!-- /.box-body -->
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-12">
+                <button type="button" [disabled]="!loteForm.valid" class="rightPos saveBtn" pButton (click)="guardar()">GUARDAR</button>
               </div>
-              <!-- /.box -->
-
             </div>
-          </div>
-          <button type="submit" pButton icon="fa-plus" (click)="guardar()" label="Guardar"></button>
+          </form>
         </div>
         <!-- /.tab-pane -->
 
         <div class="tab-pane" id="facturas">
 
-          <div *ngIf="loteSeleccionado && listafacturas.length > 0">
+          <div *ngIf="lote && listafacturas.length > 0">
             <!-- The timeline -->
             <ul class="timeline timeline-inverse">
               <!-- timeline time label -->
@@ -312,8 +325,9 @@
             </ul>
           </div>
 
-          <div *ngIf="loteSeleccionado.idlote && listafacturas.length <= 0">
-            <h3>EL SOCIO <b>{{loteSeleccionado.socio.nombre}} {{loteSeleccionado.socio.apellido}}</b> NO TIENE FACTURAS CARGADAS.</h3>
+          <div *ngIf="lote.idlote && listafacturas.length <= 0">
+            <h3>EL SOCIO
+              <b>{{lote.socio.nombre}} {{lote.socio.apellido}}</b> NO TIENE FACTURAS CARGADAS.</h3>
           </div>
 
 

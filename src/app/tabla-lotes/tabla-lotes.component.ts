@@ -12,6 +12,7 @@ import { Message } from 'primeng/primeng';
 export class TablaLotesComponent implements OnInit {
 
   listaLotes: Lote[] = [];
+  idlote: number | null = null;
   textToFind: string = '';
   message: Message[] = []
 
@@ -51,12 +52,38 @@ export class TablaLotesComponent implements OnInit {
   }
 
   onRowSelect(event) {
-    let idlote: number = event.data.idlote
-    this.router.navigate(['/lote'], { queryParams: { idlote: idlote } });
+    this.idlote = event.data.idlote
   }
 
   nuevoLote() {
     this.router.navigate(['/lote']);
+  }
+
+  modificarLote() {
+    if (this.idlote && this.idlote > 0) {
+      this.router.navigate(['/socio'], { queryParams: { idlote: this.idlote } });
+    } else {
+      this.message = [];
+      this.message.push({ severity: 'info', summary: 'Operación inválida!', detail: 'Se debe seleccionar un lote.' });
+    }
+  }
+
+  eliminarLote() {
+    if (this.idlote && this.idlote > 0) {
+      this.loteService.delete(this.idlote)
+        .subscribe(() => {
+          this.idlote = null;
+          this.message = [];
+          this.message.push({ severity: 'success', summary: 'Operación exitosa!', detail: 'Se elimino el registro.' });
+        })
+    } else {
+      this.message = [];
+      this.message.push({ severity: 'info', summary: 'Operación inválida!', detail: 'Se debe seleccionar un lote.' });
+    }
+  }
+
+  generarExcel() {
+
   }
 
 

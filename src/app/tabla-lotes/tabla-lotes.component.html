@@ -9,13 +9,16 @@
       <input #gb type="text" pInputText size="50" placeholder="Buscar" [(ngModel)]="textToFind" (ngModelChange)="find()">
     </div>
 
-    <p-dataTable #dt [value]="listaLotes" selectionMode="single" emptyMessage="No existen registros" sortMode="single" reorderableColumns="true"
-      scrollable="true" [globalFilter]="gb"  [paginator]="false" scrollWidth="100%" columnResizeMode="expand" (onRowSelect)="onRowSelect($event)"
+    <p-dataTable [value]="listaLotes" selectionMode="single" emptyMessage="No existen registros" sortMode="single" reorderableColumns="true"
+      scrollable="true" [globalFilter]="gb" scrollWidth="100%" columnResizeMode="expand" (onRowSelect)="onRowSelect($event)"
       [responsive]="true">
 
       <p-header>
         <div class="ui-helper-clearfix" style="width:100%">
           <button type="button" pButton icon="fa-plus" style="float:left" (click)="nuevoLote()" label="NUEVO"></button>
+          <button type="button" pButton icon="fa-edit" style="float:left" (click)="modificarLote()" label="MODIFICAR"></button>
+          <button type="button" pButton icon="fa-trash " style="float:left" (click)="eliminarLote()" label="ELIMINAR"></button>
+          <button type="button" pButton icon="fa-file-o" style="float:right" (click)="generarExcel()" label="GENERAR EXCEL"></button>
         </div>
       </p-header>
 
@@ -29,8 +32,8 @@
       <p-column field="manzana" header="MANZANA" [style]="{'width': '200px'}"></p-column>
 
     </p-dataTable>
-    <p-paginator rows="10" [rowsPerPageOptions]="[10,50,100]" ></p-paginator>
-    
+    <p-paginator rows="10" [rowsPerPageOptions]="[10,50,100]"></p-paginator>
+
 
   </div>
 </div>

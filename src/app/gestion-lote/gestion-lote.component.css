@@ -1,7 +1,13 @@
 .margen {
     margin-left: 14px;
 }
-
 .centrar {
     margin-left: 20%;
+}
+.rightPos {
+    float:right;
+}
+.saveBtn {
+    width: 100px;
+    height: 25px;
 }

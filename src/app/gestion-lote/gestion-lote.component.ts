@@ -13,20 +13,32 @@ import { SocioService } from '../shared/services/socio.service';
 })
 export class GestionLoteComponent implements OnInit {
 
-  loteSeleccionado: Lote = new Lote();
+  lote: Lote = new Lote();
   message: Message[] = [];
   manzanas: SelectItem[] = [];
   manzanaSeleccionada: Manzana;
   listaSocios: Socio[] = [];
   listafacturas: Factura[] = [];
-
+  loteForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private loteService: LoteService,
-    private socioService: SocioService
-  ) { }
+    private socioService: SocioService,
+    private fb: FormBuilder
+  ) {
+    this.loteForm = fb.group({
+      'numeroLote': ['', [Validators.required]],
+      'manzana': ['', [Validators.required]],
+      'nrovalvulas': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
+      'frente': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
+      'edificado': [''],
+      'residuos': [''],
+      'socioxnombre': [''],
+      'socioxdni': ['']
+    })
+  }
 
   ngOnInit() {
     this.route.queryParams
@@ -35,8 +47,8 @@ export class GestionLoteComponent implements OnInit {
         if (aux.length > 2) {
           this.loteService.getById(params.idlote, { include: [{ relation: "socio", scope: { include: { relation: "facturas", scope: { order: "fechaemision DESC" } } } }] })
             .subscribe((lote: Lote) => {
-              this.loteSeleccionado = lote;
-              this.listafacturas = this.loteSeleccionado.socio.facturas;
+              this.lote = lote;
+              this.listafacturas = this.lote.socio.facturas;
             }, (err => console.log(err.message)))
         }
       })
@@ -70,13 +82,13 @@ export class GestionLoteComponent implements OnInit {
 
   guardar() {
     //this.loteSeleccionado.idsocio = this.loteSeleccionado.socio.idsocio;
-    if (this.loteSeleccionado.idlote) {
-      this.loteService.update(this.loteSeleccionado)
+    if (this.lote.idlote) {
+      this.loteService.update(this.lote)
         .subscribe((lote: Lote) => {
           this.router.navigate(['/lotes'])
         }, (err => console.log(err.message)))
     } else {
-      this.loteService.create(this.loteSeleccionado)
+      this.loteService.create(this.lote)
         .subscribe((lote: Lote) => {
           this.router.navigate(['/lotes'])
         }, (err => console.log(err.message)))

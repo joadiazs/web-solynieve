@@ -42,7 +42,7 @@ export class GestionSocioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listafacturas.push(new Factura({ idfactura: 1, nrofactura: 1, enviaralote: 1 }))
+    //this.listafacturas.push(new Factura({ idfactura: 1, nrofactura: 1, enviaralote: 1 }))
     this.route.queryParams
       .subscribe((params: any) => {
         let aux = JSON.stringify(params)
