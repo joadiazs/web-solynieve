@@ -8,7 +8,7 @@ export interface LoteInterface {
   "idlote"?: number;
   "idsocio"?: number;
   "numero"?: number;
-  "manzana"?: string;
+  "manzana"?: number;
   "frente"?: number;
   "edificado"?: number;
   "nrovalvulas"?: number;
@@ -20,7 +20,7 @@ export class Lote implements LoteInterface {
   "idlote": number;
   "idsocio": number;
   "numero": number;
-  "manzana": string;
+  "manzana": number;
   "frente": number;
   "edificado": number;
   "nrovalvulas": number;
@@ -73,7 +73,7 @@ export class Lote implements LoteInterface {
         },
         "manzana": {
           name: 'manzana',
-          type: 'string'
+          type: 'number'
         },
         "frente": {
           name: 'frente',

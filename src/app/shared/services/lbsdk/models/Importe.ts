@@ -1,8 +1,4 @@
 /* tslint:disable */
-import {
-  Detallefactura,
-  Factura
-} from '../index';
 
 declare var Object: any;
 export interface ImporteInterface {
@@ -10,8 +6,6 @@ export interface ImporteInterface {
   "idfactura": number;
   "iddetalle"?: number;
   "importe"?: number;
-  detallefactura?: Detallefactura;
-  factura?: Factura;
 }
 
 export class Importe implements ImporteInterface {
@@ -19,8 +13,6 @@ export class Importe implements ImporteInterface {
   "idfactura": number;
   "iddetalle": number;
   "importe": number;
-  detallefactura: Detallefactura;
-  factura: Factura;
   constructor(data?: ImporteInterface) {
     Object.assign(this, data);
   }
@@ -72,22 +64,6 @@ export class Importe implements ImporteInterface {
         },
       },
       relations: {
-        detallefactura: {
-          name: 'detallefactura',
-          type: 'Detallefactura',
-          model: 'Detallefactura',
-          relationType: 'belongsTo',
-                  keyFrom: 'iddetalle',
-          keyTo: 'iddetallefactura'
-        },
-        factura: {
-          name: 'factura',
-          type: 'Factura',
-          model: 'Factura',
-          relationType: 'belongsTo',
-                  keyFrom: 'idfactura',
-          keyTo: 'idfactura'
-        },
       }
     }
   }

@@ -1,15 +1,11 @@
 /* tslint:disable */
-import {
-  Factura
-} from '../index';
 
 declare var Object: any;
 export interface DomicilioInterface {
-  "iddomicilio": number;
+  "iddomicilio"?: number;
   "calle"?: number;
   "numero"?: number;
   "departamento"?: number;
-  factura?: Factura;
 }
 
 export class Domicilio implements DomicilioInterface {
@@ -17,7 +13,6 @@ export class Domicilio implements DomicilioInterface {
   "calle": number;
   "numero": number;
   "departamento": number;
-  factura: Factura;
   constructor(data?: DomicilioInterface) {
     Object.assign(this, data);
   }
@@ -69,14 +64,6 @@ export class Domicilio implements DomicilioInterface {
         },
       },
       relations: {
-        factura: {
-          name: 'factura',
-          type: 'Factura',
-          model: 'Factura',
-          relationType: 'hasOne',
-                  keyFrom: 'iddomicilio',
-          keyTo: 'iddomicilio'
-        },
       }
     }
   }

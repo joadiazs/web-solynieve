@@ -1,19 +1,14 @@
 /* tslint:disable */
-import {
-  Importe
-} from '../index';
 
 declare var Object: any;
 export interface DetallefacturaInterface {
   "iddetallefactura"?: number;
   "nombre"?: number;
-  importes?: Importe[];
 }
 
 export class Detallefactura implements DetallefacturaInterface {
   "iddetallefactura": number;
   "nombre": number;
-  importes: Importe[];
   constructor(data?: DetallefacturaInterface) {
     Object.assign(this, data);
   }
@@ -57,14 +52,6 @@ export class Detallefactura implements DetallefacturaInterface {
         },
       },
       relations: {
-        importes: {
-          name: 'importes',
-          type: 'Importe[]',
-          model: 'Importe',
-          relationType: 'hasMany',
-                  keyFrom: 'iddetallefactura',
-          keyTo: 'iddetalle'
-        },
       }
     }
   }

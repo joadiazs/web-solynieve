@@ -1,44 +1,38 @@
 /* tslint:disable */
 import {
-  Usuario,
-  Factura,
   Domicilio,
-  Lote
+  Factura
 } from '../index';
 
 declare var Object: any;
 export interface SocioInterface {
   "idsocio"?: number;
-  "iddomicilio"?: number;
   "nombre"?: string;
   "apellido"?: string;
-  "dni"?: string;
+  "dni"?: number;
   "fechanac"?: Date;
   "cuitcuil"?: string;
   "espersona"?: number;
   "telefono"?: number;
   "nrosocio"?: number;
-  usuarios?: Usuario;
-  facturas?: Factura[];
+  "iddomicilio"?: number;
   domicilio?: Domicilio;
-  lotes?: Lote[];
+  facturas?: Factura[];
 }
 
 export class Socio implements SocioInterface {
   "idsocio": number;
-  "iddomicilio": number;
   "nombre": string;
   "apellido": string;
-  "dni": string;
+  "dni": number;
   "fechanac": Date;
   "cuitcuil": string;
   "espersona": number;
   "telefono": number;
   "nrosocio": number;
-  usuarios: Usuario;
-  facturas: Factura[];
+  "iddomicilio": number;
   domicilio: Domicilio;
-  lotes: Lote[];
+  facturas: Factura[];
   constructor(data?: SocioInterface) {
     Object.assign(this, data);
   }
@@ -76,10 +70,6 @@ export class Socio implements SocioInterface {
           name: 'idsocio',
           type: 'number'
         },
-        "iddomicilio": {
-          name: 'iddomicilio',
-          type: 'number'
-        },
         "nombre": {
           name: 'nombre',
           type: 'string'
@@ -90,7 +80,7 @@ export class Socio implements SocioInterface {
         },
         "dni": {
           name: 'dni',
-          type: 'string'
+          type: 'number'
         },
         "fechanac": {
           name: 'fechanac',
@@ -112,24 +102,12 @@ export class Socio implements SocioInterface {
           name: 'nrosocio',
           type: 'number'
         },
+        "iddomicilio": {
+          name: 'iddomicilio',
+          type: 'number'
+        },
       },
       relations: {
-        usuarios: {
-          name: 'usuarios',
-          type: 'Usuario',
-          model: 'Usuario',
-          relationType: 'hasOne',
-                  keyFrom: 'idsocio',
-          keyTo: 'idsocio'
-        },
-        facturas: {
-          name: 'facturas',
-          type: 'Factura[]',
-          model: 'Factura',
-          relationType: 'hasMany',
-                  keyFrom: 'idsocio',
-          keyTo: 'idsocio'
-        },
         domicilio: {
           name: 'domicilio',
           type: 'Domicilio',
@@ -138,10 +116,10 @@ export class Socio implements SocioInterface {
                   keyFrom: 'iddomicilio',
           keyTo: 'iddomicilio'
         },
-        lotes: {
-          name: 'lotes',
-          type: 'Lote[]',
-          model: 'Lote',
+        facturas: {
+          name: 'facturas',
+          type: 'Factura[]',
+          model: 'Factura',
           relationType: 'hasMany',
                   keyFrom: 'idsocio',
           keyTo: 'idsocio'

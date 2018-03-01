@@ -45,14 +45,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CookieBrowser } from './storage/cookie.browser';
 import { StorageBrowser } from './storage/storage.browser';
-import { SocioApi } from './services/custom/Socio';
-import { PagoApi } from './services/custom/Pago';
-import { ImporteApi } from './services/custom/Importe';
-import { DetallefacturaApi } from './services/custom/Detallefactura';
 import { UsuarioApi } from './services/custom/Usuario';
-import { FacturaApi } from './services/custom/Factura';
 import { DomicilioApi } from './services/custom/Domicilio';
+import { DetallefacturaApi } from './services/custom/Detallefactura';
+import { FacturaApi } from './services/custom/Factura';
+import { ImporteApi } from './services/custom/Importe';
 import { LoteApi } from './services/custom/Lote';
+import { PagoApi } from './services/custom/Pago';
+import { SocioApi } from './services/custom/Socio';
 /**
 * @module SDKBrowserModule
 * @description
@@ -82,14 +82,14 @@ export class SDKBrowserModule {
         LoggerService,
         JSONSearchParams,
         SDKModels,
-        SocioApi,
-        PagoApi,
-        ImporteApi,
-        DetallefacturaApi,
         UsuarioApi,
-        FacturaApi,
         DomicilioApi,
+        DetallefacturaApi,
+        FacturaApi,
+        ImporteApi,
         LoteApi,
+        PagoApi,
+        SocioApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser }
       ]

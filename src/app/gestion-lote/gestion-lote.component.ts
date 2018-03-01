@@ -65,11 +65,11 @@ export class GestionLoteComponent implements OnInit {
 
   clickManzana(event) {
     this.manzanaSeleccionada = <Manzana>event.value;
-    this.loteSeleccionado.manzana = this.manzanaSeleccionada.nombre;
+    //this.loteSeleccionado.manzana = this.manzanaSeleccionada.nombre;
   }
 
   guardar() {
-    this.loteSeleccionado.idsocio = this.loteSeleccionado.socio.idsocio;
+    //this.loteSeleccionado.idsocio = this.loteSeleccionado.socio.idsocio;
     if (this.loteSeleccionado.idlote) {
       this.loteService.update(this.loteSeleccionado)
         .subscribe((lote: Lote) => {
@@ -97,7 +97,7 @@ export class GestionLoteComponent implements OnInit {
   }
 
   buscarSocioXdni(event) {
-    event.query = event.query.toUpperCase();
+    /*event.query = event.query.toUpperCase();
     this.socioService.getAll()
       .subscribe((socios: Socio[]) => {
         socios = socios.filter((socio: Socio) => {
@@ -107,6 +107,7 @@ export class GestionLoteComponent implements OnInit {
         });
         this.listaSocios = socios;
       }, (err => console.log(err.message)))
+      */
   }
 
 }

@@ -168,7 +168,7 @@
 
                         <b>Número</b>
                         <br>
-                        <input formControlName="numeroDomicilio" class="form-control" [(ngModel)]="domicilio.numero" type="text">
+                        <input formControlName="numeroDomicilio" class="form-control" [(ngModel)]="domicilio.numero" type="number">
                         <div *ngIf="socioForm.get('numeroDomicilio').errors && socioForm.get('numeroDomicilio').dirty" class="alert alert-danger">
                           <p *ngIf="socioForm.get('numeroDomicilio').hasError('required')">Este campo es obligatorio</p>
                           <p *ngIf="socioForm.get('numeroDomicilio').hasError('pattern')">Ingrese un número válido</p>
@@ -197,11 +197,6 @@
 
                     </div>
                   </div>
-                  <div class="ui-grid-row">
-                    <div class="rightPos ui-grid-col-12">
-                      <button type="button" [disabled]="!socioForm.valid" pButton icon="fa-plus" class="rightPos" (click)="guardar()">GUARDAR</button>
-                    </div>
-                  </div>
 
                   <!-- /.box-body -->
                 </div>
@@ -210,6 +205,11 @@
               </div>
             </div>
 
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+              <button type="button" [disabled]="!socioForm.valid" class="rightPos saveBtn" pButton (click)="guardar()">GUARDAR</button>
+            </div>
           </div>
         </form>
       </div>

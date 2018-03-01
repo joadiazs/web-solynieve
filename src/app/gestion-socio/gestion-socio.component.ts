@@ -60,12 +60,15 @@ export class GestionSocioComponent implements OnInit {
   }
 
   guardar() {
+    console.log("DOMICILIO A CREAR: ", this.domicilio)
     this.domicilioService.create(this.domicilio)
       .subscribe((domicilio: Domicilio) => {
-        this.socio.domicilio = domicilio;
+        console.log("DOMICILIO CREADO: ", domicilio)
         this.socio.iddomicilio = domicilio.iddomicilio;
+        console.log("SOCIO A CREAR: ", this.socio)
         this.socioService.create(this.socio)
           .subscribe((socio: Socio) => {
+            console.log("SOCIO CREADO: ", socio)
             this.router.navigate(['/socios']);
             this.message = [];
             this.message.push({ severity: 'success', summary: 'Operación existosa!', detail: 'Se añadio un nuevo socio.' });

@@ -1,3 +1,8 @@
 .rightPos {
     float:right;
 }
+
+.saveBtn {
+    width: 100px;
+    height: 25px;
+}

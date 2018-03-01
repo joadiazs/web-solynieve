@@ -1,13 +1,13 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
-import { Socio } from '../../models/Socio';
-import { Pago } from '../../models/Pago';
-import { Importe } from '../../models/Importe';
-import { Detallefactura } from '../../models/Detallefactura';
 import { Usuario } from '../../models/Usuario';
-import { Factura } from '../../models/Factura';
 import { Domicilio } from '../../models/Domicilio';
+import { Detallefactura } from '../../models/Detallefactura';
+import { Factura } from '../../models/Factura';
+import { Importe } from '../../models/Importe';
 import { Lote } from '../../models/Lote';
+import { Pago } from '../../models/Pago';
+import { Socio } from '../../models/Socio';
 
 export interface Models { [name: string]: any }
 
@@ -15,14 +15,14 @@ export interface Models { [name: string]: any }
 export class SDKModels {
 
   private models: Models = {
-    Socio: Socio,
-    Pago: Pago,
-    Importe: Importe,
-    Detallefactura: Detallefactura,
     Usuario: Usuario,
-    Factura: Factura,
     Domicilio: Domicilio,
+    Detallefactura: Detallefactura,
+    Factura: Factura,
+    Importe: Importe,
     Lote: Lote,
+    Pago: Pago,
+    Socio: Socio,
     
   };
 

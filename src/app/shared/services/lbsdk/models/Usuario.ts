@@ -1,7 +1,4 @@
 /* tslint:disable */
-import {
-  Socio
-} from '../index';
 
 declare var Object: any;
 export interface UsuarioInterface {
@@ -13,7 +10,6 @@ export interface UsuarioInterface {
   "emailVerified"?: boolean;
   "password"?: string;
   accessTokens?: any[];
-  socio?: Socio;
 }
 
 export class Usuario implements UsuarioInterface {
@@ -25,7 +21,6 @@ export class Usuario implements UsuarioInterface {
   "emailVerified": boolean;
   "password": string;
   accessTokens: any[];
-  socio: Socio;
   constructor(data?: UsuarioInterface) {
     Object.assign(this, data);
   }
@@ -96,14 +91,6 @@ export class Usuario implements UsuarioInterface {
           relationType: 'hasMany',
                   keyFrom: 'idusuario',
           keyTo: 'userId'
-        },
-        socio: {
-          name: 'socio',
-          type: 'Socio',
-          model: 'Socio',
-          relationType: 'belongsTo',
-                  keyFrom: 'idsocio',
-          keyTo: 'idsocio'
         },
       }
     }

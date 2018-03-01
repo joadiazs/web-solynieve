@@ -1,33 +1,22 @@
 /* tslint:disable */
-import {
-  Socio,
-  Importe,
-  Domicilio
-} from '../index';
 
 declare var Object: any;
 export interface FacturaInterface {
-  "idfactura": number;
+  "idfactura"?: number;
+  "iddomicilio"?: number;
   "nrofactura": number;
   "idsocio"?: number;
   "fechaemision"?: number;
   "enviaralote": number;
-  "iddomicilio"?: number;
-  socio?: Socio;
-  importes?: Importe[];
-  domicilio?: Domicilio;
 }
 
 export class Factura implements FacturaInterface {
   "idfactura": number;
+  "iddomicilio": number;
   "nrofactura": number;
   "idsocio": number;
   "fechaemision": number;
   "enviaralote": number;
-  "iddomicilio": number;
-  socio: Socio;
-  importes: Importe[];
-  domicilio: Domicilio;
   constructor(data?: FacturaInterface) {
     Object.assign(this, data);
   }
@@ -65,6 +54,10 @@ export class Factura implements FacturaInterface {
           name: 'idfactura',
           type: 'number'
         },
+        "iddomicilio": {
+          name: 'iddomicilio',
+          type: 'number'
+        },
         "nrofactura": {
           name: 'nrofactura',
           type: 'number'
@@ -81,36 +74,8 @@ export class Factura implements FacturaInterface {
           name: 'enviaralote',
           type: 'number'
         },
-        "iddomicilio": {
-          name: 'iddomicilio',
-          type: 'number'
-        },
       },
       relations: {
-        socio: {
-          name: 'socio',
-          type: 'Socio',
-          model: 'Socio',
-          relationType: 'belongsTo',
-                  keyFrom: 'idsocio',
-          keyTo: 'idsocio'
-        },
-        importes: {
-          name: 'importes',
-          type: 'Importe[]',
-          model: 'Importe',
-          relationType: 'hasMany',
-                  keyFrom: 'idfactura',
-          keyTo: 'idfactura'
-        },
-        domicilio: {
-          name: 'domicilio',
-          type: 'Domicilio',
-          model: 'Domicilio',
-          relationType: 'belongsTo',
-                  keyFrom: 'iddomicilio',
-          keyTo: 'iddomicilio'
-        },
       }
     }
   }
