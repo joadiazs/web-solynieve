@@ -13,8 +13,7 @@
         <li class="active">
           <a href="#info" data-toggle="tab">Información básica</a>
         </li>
-        <!--<li *ngIf="socio.idsocio">-->
-        <li>
+        <li *ngIf="socio.idsocio">
           <a href="#facturas" data-toggle="tab">Facturas</a>
         </li>
       </ul>
@@ -38,7 +37,7 @@
                       <div class="form-group">
                         <b>Número de socio</b>
                         <br>
-                        <input formControlName="numeroSocio" class="form-control" [(ngModel)]="socio.nrosocio" type="text" readonly="true">
+                        <input formControlName="idSocio" class="form-control" [(ngModel)]="socio.idsocio" type="text" readonly="true">
                       </div>
                     </div>
 

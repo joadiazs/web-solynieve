@@ -20,7 +20,7 @@ export class SocioService {
   }
 
   update(socio: Socio): Observable<Socio> {
-    return this.socioApi.patchAttributes(socio);
+    return this.socioApi.patchAttributes(socio.idsocio, socio);
   }
 
   delete(idsocio: number): Observable<Socio> {

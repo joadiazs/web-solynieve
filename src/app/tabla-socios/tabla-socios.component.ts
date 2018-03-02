@@ -3,6 +3,7 @@ import { SocioService } from '../shared/services/socio.service';
 import { Socio } from '../shared/services/index';
 import { Message } from 'primeng/primeng';
 import { Router } from '@angular/router';
+import { DomicilioService } from '../shared/services/domicilio.service';
 
 @Component({
   selector: 'app-tabla-socios',
@@ -13,11 +14,13 @@ export class TablaSociosComponent implements OnInit {
 
   listaSocios: Socio[] = [];
   idsocio: number | null = null;
+  iddomicilio: number | null = null;
   textToFind: string = '';
   message: Message[] = []
 
   constructor(
     private socioService: SocioService,
+    private domicilioService: DomicilioService,
     private router: Router
   ) { }
 
@@ -55,6 +58,7 @@ export class TablaSociosComponent implements OnInit {
 
   onRowSelect(event) {
     this.idsocio = event.data.idsocio;
+    this.iddomicilio = event.data.iddomicilio;
   }
 
   nuevoSocio() {
@@ -72,12 +76,18 @@ export class TablaSociosComponent implements OnInit {
 
   eliminarSocio() {
     if (this.idsocio && this.idsocio > 0) {
-      this.socioService.delete(this.idsocio)
+
+      this.domicilioService.delete(this.iddomicilio)
         .subscribe(() => {
-          this.idsocio = null;
-          this.message = [];
-          this.message.push({ severity: 'success', summary: 'Operación exitosa!', detail: 'Se elimino el registro.' });
-        })
+          this.socioService.delete(this.idsocio)
+            .subscribe(() => {
+              this.idsocio = null;
+              this.message = [];
+              this.message.push({ severity: 'success', summary: 'Operación exitosa!', detail: 'Se elimino el registro.' });
+              this.obtenerSocios();
+            }, (err => console.log(err.message)))
+        }, (err => console.log(err.message)))
+
     } else {
       this.message = [];
       this.message.push({ severity: 'info', summary: 'Operación inválida!', detail: 'Se debe seleccionar un socio.' });

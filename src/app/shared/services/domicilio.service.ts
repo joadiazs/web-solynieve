@@ -15,4 +15,9 @@ export class DomicilioService {
   update(domicilio:Domicilio): Observable <Domicilio> {
     return this.domicilioApi.patchAttributes(domicilio.iddomicilio, domicilio);
   }
+
+  delete(iddomicilio: number): Observable <Domicilio> {
+    return this.domicilioApi.deleteById(iddomicilio);
+  }
+
 }

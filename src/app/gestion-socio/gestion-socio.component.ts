@@ -27,7 +27,7 @@ export class GestionSocioComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.socioForm = fb.group({
-      'numeroSocio': [''],
+      'idSocio': [''],
       'nombreSocio': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
       'apellidoSocio': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
       'dniSocio': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8)]],
@@ -37,7 +37,6 @@ export class GestionSocioComponent implements OnInit {
       'calleDomicilio': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
       'numeroDomicilio': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
       'departamentoDomicilio': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
-
     })
   }
 
@@ -73,9 +72,10 @@ export class GestionSocioComponent implements OnInit {
             }, (err => console.log(err.message)))
         }, (err => console.log(err.message)))
     } else {
-      console.log("A MODIFICAR")      
+      console.log("A MODIFICAR", this.domicilio)
       this.domicilioService.update(this.domicilio)
       .subscribe((domicilio: Domicilio) => {
+        console.log("modificado")
         this.socioService.update(this.socio)
         .subscribe((socio: Socio) => {
           this.router.navigate(['/socios']);
