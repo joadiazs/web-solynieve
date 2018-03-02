@@ -54,7 +54,7 @@ export class TablaSociosComponent implements OnInit {
   }
 
   onRowSelect(event) {
-    this.idsocio = event.data.idlote;
+    this.idsocio = event.data.idsocio;
   }
 
   nuevoSocio() {

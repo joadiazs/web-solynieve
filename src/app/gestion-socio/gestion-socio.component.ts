@@ -49,10 +49,10 @@ export class GestionSocioComponent implements OnInit {
         if (aux.length > 2) {
           this.socioService.getById(params.idsocio, { include: [{ relation: "domicilio" }, { relation: "facturas" }] })
             .subscribe((socio: Socio) => {
+              console.log("SOCIO ENCONTRADO:", socio)
               this.listafacturas = socio.facturas;
               this.socio = socio;
               this.domicilio = socio.domicilio;
-              console.log("Socio seleccionado: ", this.socio)
             }, (err => console.log(err.message)))
         }
       })
@@ -60,20 +60,31 @@ export class GestionSocioComponent implements OnInit {
   }
 
   guardar() {
-    console.log("DOMICILIO A CREAR: ", this.domicilio)
-    this.domicilioService.create(this.domicilio)
+    if (!this.socio.idsocio) {
+      console.log("A CREAR")
+      this.domicilioService.create(this.domicilio)
+        .subscribe((domicilio: Domicilio) => {
+          this.socio.iddomicilio = domicilio.iddomicilio;
+          this.socioService.create(this.socio)
+            .subscribe((socio: Socio) => {
+              this.router.navigate(['/socios']);
+              this.message = [];
+              this.message.push({ severity: 'success', summary: 'Operación existosa!', detail: 'Se añadio un nuevo socio.' });
+            }, (err => console.log(err.message)))
+        }, (err => console.log(err.message)))
+    } else {
+      console.log("A MODIFICAR")      
+      this.domicilioService.update(this.domicilio)
       .subscribe((domicilio: Domicilio) => {
-        console.log("DOMICILIO CREADO: ", domicilio)
-        this.socio.iddomicilio = domicilio.iddomicilio;
-        console.log("SOCIO A CREAR: ", this.socio)
-        this.socioService.create(this.socio)
-          .subscribe((socio: Socio) => {
-            console.log("SOCIO CREADO: ", socio)
-            this.router.navigate(['/socios']);
-            this.message = [];
-            this.message.push({ severity: 'success', summary: 'Operación existosa!', detail: 'Se añadio un nuevo socio.' });
-          }, (err => console.log(err.message)))
+        this.socioService.update(this.socio)
+        .subscribe((socio: Socio) => {
+          this.router.navigate(['/socios']);
+          this.message = [];
+          this.message.push({ severity: 'success', summary: 'Operación existosa!', detail: 'Se modifico el socio.' });
+        }, (err => console.log(err.message)))
       }, (err => console.log(err.message)))
+    }
+
   }
 
   inspeccionarFactura(factura) {

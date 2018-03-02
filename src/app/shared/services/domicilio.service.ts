@@ -11,4 +11,8 @@ export class DomicilioService {
   create(domicilio: Domicilio): Observable <Domicilio> {
     return this.domicilioApi.create(domicilio);
   }
+
+  update(domicilio:Domicilio): Observable <Domicilio> {
+    return this.domicilioApi.patchAttributes(domicilio.iddomicilio, domicilio);
+  }
 }
