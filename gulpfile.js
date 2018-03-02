@@ -8,7 +8,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('zip', function () {
-    return gulp.src('dist/**/*')
+    return gulp.src(['dist/**/*', 'site.zip'])
         .pipe(zip('site.zip'))
         .pipe(gulp.dest('.'));
 });
